@@ -10,8 +10,10 @@ Note: This is an experimental proof-of-concept. Developers should continue to ru
 
 
 MCP Inspector View
+
 ![](./mcp.png)
 
 
 Tool Call
+
 ![](./tool.png)
