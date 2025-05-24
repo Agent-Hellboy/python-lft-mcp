@@ -10,11 +10,8 @@ Note: This is an experimental proof-of-concept. Developers should continue to ru
 
 
 MCP Inspector View
-
-"MCP Inspector" page showing mounted tools and prompts.
 ![](./mcp.png)
 
 
 Tool Call
-"Tool" call executed via the IDE chat interface.
 ![](./tool.png)
