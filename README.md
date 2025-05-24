@@ -6,7 +6,7 @@ Note: This is an experimental proof-of-concept. Developers should continue to ru
 
     Analyze the codebase for configured developer tools and settings.
     
-    Automatically determine the optimal moment to invoke tool-calls via an LLM interface.
+    Automatically determine the optimal param to invoke tool-calls via an LLM interface.
 
 
 MCP Inspector View
