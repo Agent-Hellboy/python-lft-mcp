@@ -1,0 +1,52 @@
+{
+  "_instructions": "Copy the 'python-lft' configuration below to your MCP client config file",
+  "_common_locations": [
+    "~/.cursor/mcp.json (for Cursor)",
+    "~/.config/mcp/config.json (general MCP clients)",
+    "Or your MCP client's specific configuration location"
+  ],
+  
+  "mcpServers": {
+    "python-lft": {
+      "command": "python",
+      "args": ["-m", "python_lft"],
+      "description": "Python Lint, Format, Test (LFT) - Intelligent Python development tools",
+      "version": "1.0.0"
+    }
+  },
+  
+  "_development_config": {
+    "description": "Use this configuration if running from source (not installed)",
+    "python-lft": {
+      "command": "/path/to/python-lft-mcp/venv/bin/python",
+      "args": ["/path/to/python-lft-mcp/main.py"],
+      "cwd": "/path/to/python-lft-mcp",
+      "env": {
+        "VIRTUAL_ENV": "/path/to/python-lft-mcp/venv",
+        "PYTHONPATH": "/path/to/python-lft-mcp"
+      },
+      "description": "Python LFT MCP Server (development mode)",
+      "version": "1.0.0"
+    }
+  },
+  
+  "_server_info": {
+    "tools": [
+      "detect_workspace_tools - Analyze project configuration and detect available tools",
+      "lint - Run linting tools with project-specific configurations", 
+      "format - Format code using project-specific settings",
+      "test - Execute tests with project-specific configurations",
+      "check_config_files - Verify presence of common Python config files"
+    ],
+    "supported_configs": [
+      "pyproject.toml", "setup.cfg", "tox.ini", "pytest.ini", ".flake8", 
+      ".pylintrc", "mypy.ini", "requirements.txt", ".pre-commit-config.yaml",
+      "and 70+ more Python ecosystem configuration files"
+    ],
+    "supported_tools": {
+      "linters": ["ruff", "flake8", "pylint", "mypy", "bandit", "pydocstyle"],
+      "formatters": ["black", "ruff", "isort", "autopep8", "yapf"],
+      "testers": ["pytest", "nose2", "unittest"]
+    }
+  }
+}

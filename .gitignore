@@ -6,7 +6,7 @@ l.py
 test_l.py
 # C extensions
 *.so
-
+venv/
 # Distribution / packaging
 .Python
 build/
