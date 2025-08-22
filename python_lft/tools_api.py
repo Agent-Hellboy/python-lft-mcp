@@ -63,7 +63,7 @@ def detect_workspace_tools(work_dir: str = ".") -> dict:
         return {"linters": [], "formatters": [], "testers": [], "config_files": {}}
 
 
-def lint(
+async def lint(
     target: str = "all",
     exact_tool: str = "auto",
     tool_config: Optional[dict] = None,
@@ -85,11 +85,9 @@ def lint(
     """
     try:
         orchestrator = ToolOrchestrator()
-        result = orchestrator.lint(
+        result = await orchestrator.lint(
             target=target,
-            exact_tool=exact_tool,
-            tool_config=tool_config,
-            custom_args=custom_args,
+            preferred_tool=exact_tool,
             work_dir=work_dir,
         )
 
@@ -109,7 +107,7 @@ def lint(
         }
 
 
-def format_code(
+async def format_code(
     target: str = "all",
     exact_tool: str = "auto",
     tool_config: Optional[dict] = None,
@@ -131,11 +129,9 @@ def format_code(
     """
     try:
         orchestrator = ToolOrchestrator()
-        result = orchestrator.format(
+        result = await orchestrator.format(
             target=target,
-            exact_tool=exact_tool,
-            tool_config=tool_config,
-            custom_args=custom_args,
+            preferred_tool=exact_tool,
             work_dir=work_dir,
         )
 
@@ -155,7 +151,7 @@ def format_code(
         }
 
 
-def test(
+async def test(
     target: str = "all",
     exact_tool: str = "auto",
     tool_config: Optional[dict] = None,
@@ -177,11 +173,9 @@ def test(
     """
     try:
         orchestrator = ToolOrchestrator()
-        result = orchestrator.test(
+        result = await orchestrator.test(
             target=target,
-            exact_tool=exact_tool,
-            tool_config=tool_config,
-            custom_args=custom_args,
+            preferred_tool=exact_tool,
             work_dir=work_dir,
         )
 
@@ -328,12 +322,11 @@ def register_tools(mcp: FastMCP) -> None:
         logger.info(
             f"MCP lint tool called with target: {target}, exact_tool: {exact_tool}, tool_config: {tool_config}, work_dir: {work_dir}"
         )
-        return await orchestrator.lint_with_config(
+        orchestrator = ToolOrchestrator()
+        return await orchestrator.lint(
             target=target,
-            exact_tool=exact_tool if exact_tool != "auto" else None,
-            tool_config=tool_config or {},
-            custom_args=custom_args or [],
-            work_dir=work_dir if work_dir != "." else None,
+            preferred_tool=exact_tool if exact_tool != "auto" else None,
+            work_dir=work_dir,
         )
 
     @mcp.tool(
@@ -378,12 +371,11 @@ def register_tools(mcp: FastMCP) -> None:
         logger.info(
             f"MCP format tool called with target: {target}, exact_tool: {exact_tool}, tool_config: {tool_config}, work_dir: {work_dir}"
         )
-        return await orchestrator.format_with_config(
+        orchestrator = ToolOrchestrator()
+        return await orchestrator.format(
             target=target,
-            exact_tool=exact_tool if exact_tool != "auto" else None,
-            tool_config=tool_config or {},
-            custom_args=custom_args or [],
-            work_dir=work_dir if work_dir != "." else None,
+            preferred_tool=exact_tool if exact_tool != "auto" else None,
+            work_dir=work_dir,
         )
 
     @mcp.tool(
@@ -428,12 +420,11 @@ def register_tools(mcp: FastMCP) -> None:
         logger.info(
             f"MCP test tool called with target: {target}, exact_tool: {exact_tool}, tool_config: {tool_config}, work_dir: {work_dir}"
         )
-        return await orchestrator.test_with_config(
+        orchestrator = ToolOrchestrator()
+        return await orchestrator.test(
             target=target,
-            exact_tool=exact_tool if exact_tool != "auto" else None,
-            tool_config=tool_config or {},
-            custom_args=custom_args or [],
-            work_dir=work_dir if work_dir != "." else None,
+            preferred_tool=exact_tool if exact_tool != "auto" else None,
+            work_dir=work_dir,
         )
 
     @mcp.tool(name="check_config_files", description="Check for common config files")

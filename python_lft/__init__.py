@@ -15,8 +15,11 @@ Design Patterns Used:
 __version__ = "1.0.0"
 __author__ = "Python LFT Contributors"
 
-# Public API
-from .app import create_mcp
+# Public API - conditionally import MCP-dependent modules
+try:
+    from .app import create_mcp
+except ImportError:
+    create_mcp = None
 from .core.config import configure, get_config_manager
 from .core.models import ToolConfig, ToolResult, ToolStatus, WorkspaceTools
 from .services.orchestrator import ToolOrchestrator
@@ -33,9 +36,11 @@ __all__ = [
     "WorkspaceTools",
     # Configuration
     "configure",
-    # MCP creation
-    "create_mcp",
     "detect_tools",
     "get_config_manager",
     "get_python_files",
 ]
+
+# Only add create_mcp to __all__ if it's available
+if create_mcp is not None:
+    __all__.append("create_mcp")
