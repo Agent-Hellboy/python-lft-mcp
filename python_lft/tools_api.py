@@ -12,6 +12,196 @@ from .services.workspace import detect_tools
 logger = logging.getLogger(__name__)
 
 
+def detect_workspace_tools(work_dir: str = ".") -> dict:
+    """
+    Analyze a Python project's configuration files to discover which development tools are configured.
+
+    Args:
+        work_dir: Directory to analyze (defaults to current directory)
+
+    Returns:
+        Dictionary containing discovered tools and their configurations
+    """
+    try:
+        orchestrator = ToolOrchestrator()
+        tools = detect_tools(work_dir=work_dir)
+
+        return {
+            "linters": [
+                {
+                    "name": tool.name,
+                    "command": tool.command,
+                    "available": tool.available,
+                    "config_files": tool.config_files,
+                    "config_data": tool.config_data,
+                }
+                for tool in tools.linters
+            ],
+            "formatters": [
+                {
+                    "name": tool.name,
+                    "command": tool.command,
+                    "available": tool.available,
+                    "config_files": tool.config_files,
+                    "config_data": tool.config_data,
+                }
+                for tool in tools.formatters
+            ],
+            "testers": [
+                {
+                    "name": tool.name,
+                    "command": tool.command,
+                    "available": tool.available,
+                    "config_files": tool.config_files,
+                    "config_data": tool.config_data,
+                }
+                for tool in tools.testers
+            ],
+            "config_files": tools.config_files,
+        }
+    except Exception as e:
+        logger.error(f"Error detecting workspace tools: {e}")
+        return {"linters": [], "formatters": [], "testers": [], "config_files": {}}
+
+
+def lint(
+    target: str = "all",
+    exact_tool: str = "auto",
+    tool_config: Optional[dict] = None,
+    custom_args: Optional[list] = None,
+    work_dir: str = ".",
+) -> dict:
+    """
+    Automatically format Python code to improve readability and enforce consistent style.
+
+    Args:
+        target: Files or directories to lint ("all" for entire project)
+        exact_tool: Specific linter tool to use ("auto" for best available)
+        tool_config: Custom configuration for the tool
+        custom_args: Additional command-line arguments
+        work_dir: Working directory to run the command in
+
+    Returns:
+        Dictionary with execution results
+    """
+    try:
+        orchestrator = ToolOrchestrator()
+        result = orchestrator.lint(
+            target=target,
+            exact_tool=exact_tool,
+            tool_config=tool_config,
+            custom_args=custom_args,
+            work_dir=work_dir,
+        )
+
+        return {
+            "exit_code": result.exit_code,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+            "success": result.success,
+        }
+    except Exception as e:
+        logger.error(f"Error running linter: {e}")
+        return {
+            "exit_code": 1,
+            "stdout": "",
+            "stderr": str(e),
+            "success": False,
+        }
+
+
+def format_code(
+    target: str = "all",
+    exact_tool: str = "auto",
+    tool_config: Optional[dict] = None,
+    custom_args: Optional[list] = None,
+    work_dir: str = ".",
+) -> dict:
+    """
+    Automatically format Python code to improve readability and enforce consistent style.
+
+    Args:
+        target: Files or directories to format ("all" for entire project)
+        exact_tool: Specific formatter tool to use ("auto" for best available)
+        tool_config: Custom configuration for the tool
+        custom_args: Additional command-line arguments
+        work_dir: Working directory to run the command in
+
+    Returns:
+        Dictionary with execution results
+    """
+    try:
+        orchestrator = ToolOrchestrator()
+        result = orchestrator.format(
+            target=target,
+            exact_tool=exact_tool,
+            tool_config=tool_config,
+            custom_args=custom_args,
+            work_dir=work_dir,
+        )
+
+        return {
+            "exit_code": result.exit_code,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+            "success": result.success,
+        }
+    except Exception as e:
+        logger.error(f"Error running formatter: {e}")
+        return {
+            "exit_code": 1,
+            "stdout": "",
+            "stderr": str(e),
+            "success": False,
+        }
+
+
+def test(
+    target: str = "all",
+    exact_tool: str = "auto",
+    tool_config: Optional[dict] = None,
+    custom_args: Optional[list] = None,
+    work_dir: str = ".",
+) -> dict:
+    """
+    Execute test suites to verify code functionality and catch regressions.
+
+    Args:
+        target: Files or directories to test ("all" for entire project)
+        exact_tool: Specific test tool to use ("auto" for best available)
+        tool_config: Custom configuration for the tool
+        custom_args: Additional command-line arguments
+        work_dir: Working directory to run the command in
+
+    Returns:
+        Dictionary with execution results
+    """
+    try:
+        orchestrator = ToolOrchestrator()
+        result = orchestrator.test(
+            target=target,
+            exact_tool=exact_tool,
+            tool_config=tool_config,
+            custom_args=custom_args,
+            work_dir=work_dir,
+        )
+
+        return {
+            "exit_code": result.exit_code,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+            "success": result.success,
+        }
+    except Exception as e:
+        logger.error(f"Error running tests: {e}")
+        return {
+            "exit_code": 1,
+            "stdout": "",
+            "stderr": str(e),
+            "success": False,
+        }
+
+
 def register_tools(mcp: FastMCP) -> None:
     """Register all MCP tools with the FastMCP instance."""
 
@@ -79,15 +269,21 @@ def register_tools(mcp: FastMCP) -> None:
             ],
             "config_files": workspace_tools.config_files,
             "recommended": {
-                "linter": workspace_tools.get_best_linter().name
-                if workspace_tools.get_best_linter()
-                else None,
-                "formatter": workspace_tools.get_best_formatter().name
-                if workspace_tools.get_best_formatter()
-                else None,
-                "tester": workspace_tools.get_best_tester().name
-                if workspace_tools.get_best_tester()
-                else None,
+                "linter": (
+                    workspace_tools.get_best_linter().name
+                    if workspace_tools.get_best_linter()
+                    else None
+                ),
+                "formatter": (
+                    workspace_tools.get_best_formatter().name
+                    if workspace_tools.get_best_formatter()
+                    else None
+                ),
+                "tester": (
+                    workspace_tools.get_best_tester().name
+                    if workspace_tools.get_best_tester()
+                    else None
+                ),
             },
         }
 

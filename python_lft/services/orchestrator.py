@@ -65,9 +65,11 @@ class ToolOrchestrator:
             if len(files) > MAX_FILES_PER_BATCH:
                 # Use chunked execution for large file sets
                 results = await run_chunked(
-                    [executor.command, "check"]
-                    if executor.name == "ruff"
-                    else [executor.command],
+                    (
+                        [executor.command, "check"]
+                        if executor.name == "ruff"
+                        else [executor.command]
+                    ),
                     files,
                     chunk_size=MAX_FILES_PER_BATCH,
                 )

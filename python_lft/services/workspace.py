@@ -73,11 +73,13 @@ def get_python_files(target: str = "all", work_dir: Optional[str] = None) -> lis
                 if not excluded:
                     filtered_files.append(file_path)
 
-            logger.info(f"Found {len(filtered_files)} Python files (excluded {len(all_files) - len(filtered_files)})")
+            logger.info(
+                f"Found {len(filtered_files)} Python files (excluded {len(all_files) - len(filtered_files)})"
+            )
             return sorted(filtered_files)
         else:
             # Return specific file if it exists
-            if os.path.exists(target) and target.endswith('.py'):
+            if os.path.exists(target) and target.endswith(".py"):
                 return [target]
             else:
                 logger.warning(f"Target file not found: {target}")
@@ -97,6 +99,7 @@ def _matches_exclude_pattern(file_path: str, pattern: str) -> bool:
     elif "**" in pattern:
         # Handle recursive patterns
         import fnmatch
+
         return fnmatch.fnmatch(file_path, pattern)
     else:
         return file_path.startswith(pattern.rstrip("/"))
@@ -140,7 +143,7 @@ def detect_tools(work_dir: Optional[str] = None) -> WorkspaceTools:
             linters=linters,
             formatters=formatters,
             testers=testers,
-            config_files=config_files_exist
+            config_files=config_files_exist,
         )
     finally:
         # Restore original directory
@@ -171,45 +174,49 @@ def _parse_config_file(file_path: str) -> Optional[dict[str, Any]]:
 
     try:
         # TOML files
-        if path.suffix == '.toml' and tomllib:
-            with open(file_path, 'rb') as f:
+        if path.suffix == ".toml" and tomllib:
+            with open(file_path, "rb") as f:
                 return tomllib.load(f)
 
         # YAML files
-        elif path.suffix in {'.yaml', '.yml'} and yaml:
+        elif path.suffix in {".yaml", ".yml"} and yaml:
             with open(file_path) as f:
                 return yaml.safe_load(f)
 
         # JSON files
-        elif path.suffix == '.json':
+        elif path.suffix == ".json":
             import json
+
             with open(file_path) as f:
                 return json.load(f)
 
         # INI/CFG files
-        elif (path.suffix in {'.ini', '.cfg'} or
-              path.name in {'.flake8', '.pylintrc', '.style.yapf', '.yapfrc', '.coveragerc'}) and configparser:
+        elif (
+            path.suffix in {".ini", ".cfg"}
+            or path.name
+            in {".flake8", ".pylintrc", ".style.yapf", ".yapfrc", ".coveragerc"}
+        ) and configparser:
             config = configparser.ConfigParser()
             config.read(file_path)
             return {section: dict(config[section]) for section in config.sections()}
 
         # Python files (setup.py, conf.py)
-        elif path.suffix == '.py':
+        elif path.suffix == ".py":
             return _parse_python_config_file(file_path)
 
         # Requirements files
-        elif 'requirements' in path.name and path.suffix == '.txt':
+        elif "requirements" in path.name and path.suffix == ".txt":
             return _parse_requirements_file(file_path)
 
         # Plain text files with special handling
-        elif path.name in {'.gitignore', '.editorconfig', 'Dockerfile'}:
+        elif path.name in {".gitignore", ".editorconfig", "Dockerfile"}:
             return _parse_text_config_file(file_path)
 
         # Pipfile (TOML-like)
-        elif path.name == 'Pipfile':
+        elif path.name == "Pipfile":
             with open(file_path) as f:
                 content = f.read()
-                return {'pipfile_content': content}
+                return {"pipfile_content": content}
 
         else:
             # Unknown format
@@ -228,26 +235,38 @@ def _parse_python_config_file(file_path: str) -> Optional[dict[str, Any]]:
 
         # Extract basic information from setup.py
         config = {}
-        if 'setup(' in content:
+        if "setup(" in content:
             # Try to extract setup() parameters
             import re
 
             # Extract common setup parameters
-            for param in ['name', 'version', 'description', 'author', 'python_requires']:
+            for param in [
+                "name",
+                "version",
+                "description",
+                "author",
+                "python_requires",
+            ]:
                 pattern = rf'{param}\s*=\s*["\']([^"\']+)["\']'
                 match = re.search(pattern, content)
                 if match:
                     config[param] = match.group(1)
 
             # Extract install_requires
-            requires_pattern = r'install_requires\s*=\s*\[(.*?)\]'
+            requires_pattern = r"install_requires\s*=\s*\[(.*?)\]"
             match = re.search(requires_pattern, content, re.DOTALL)
             if match:
                 requires_content = match.group(1)
-                requires = [req.strip().strip('"\'') for req in requires_content.split(',') if req.strip()]
-                config['install_requires'] = requires
+                requires = [
+                    req.strip().strip("\"'")
+                    for req in requires_content.split(",")
+                    if req.strip()
+                ]
+                config["install_requires"] = requires
 
-        return config if config else {'python_file': True, 'content_length': len(content)}
+        return (
+            config if config else {"python_file": True, "content_length": len(content)}
+        )
 
     except Exception:
         return None
@@ -257,13 +276,13 @@ def _parse_requirements_file(file_path: str) -> Optional[dict[str, Any]]:
     """Parse requirements.txt files."""
     try:
         with open(file_path) as f:
-            lines = [line.strip() for line in f.readlines() if line.strip() and not line.startswith('#')]
+            lines = [
+                line.strip()
+                for line in f.readlines()
+                if line.strip() and not line.startswith("#")
+            ]
 
-        return {
-            'requirements': lines,
-            'count': len(lines),
-            'file_type': 'requirements'
-        }
+        return {"requirements": lines, "count": len(lines), "file_type": "requirements"}
     except Exception:
         return None
 
@@ -275,10 +294,10 @@ def _parse_text_config_file(file_path: str) -> Optional[dict[str, Any]]:
             content = f.read()
 
         return {
-            'file_type': 'text_config',
-            'line_count': len(content.splitlines()),
-            'content_length': len(content),
-            'filename': Path(file_path).name
+            "file_type": "text_config",
+            "line_count": len(content.splitlines()),
+            "content_length": len(content),
+            "filename": Path(file_path).name,
         }
     except Exception:
         return None
@@ -304,7 +323,7 @@ def _detect_linters(configs: dict[str, Any]) -> list[ToolConfig]:
             command=linter_name,  # Simple command name
             available=is_configured,  # True if configured in project
             config_files=config_files,
-            config_data=config_data
+            config_data=config_data,
         )
 
         linters.append(tool_config)
@@ -332,7 +351,7 @@ def _detect_formatters(configs: dict[str, Any]) -> list[ToolConfig]:
             command=formatter_name,  # Simple command name
             available=is_configured,  # True if configured in project
             config_files=config_files,
-            config_data=config_data
+            config_data=config_data,
         )
 
         formatters.append(tool_config)
@@ -360,7 +379,7 @@ def _detect_testers(configs: dict[str, Any]) -> list[ToolConfig]:
             command=tester_name,  # Simple command name
             available=is_configured,  # True if configured in project
             config_files=config_files,
-            config_data=config_data
+            config_data=config_data,
         )
 
         testers.append(tool_config)
@@ -375,15 +394,23 @@ def _find_tool_configs(tool_name: str, configs: dict[str, Any]) -> list[str]:
     for config_file in configs.keys():
         if tool_name in config_file.lower():
             relevant_configs.append(config_file)
-        elif config_file == "pyproject.toml" and tool_name in str(configs[config_file]).lower():
+        elif (
+            config_file == "pyproject.toml"
+            and tool_name in str(configs[config_file]).lower()
+        ):
             relevant_configs.append(config_file)
-        elif config_file == "setup.cfg" and tool_name in str(configs[config_file]).lower():
+        elif (
+            config_file == "setup.cfg"
+            and tool_name in str(configs[config_file]).lower()
+        ):
             relevant_configs.append(config_file)
 
     return relevant_configs
 
 
-def _extract_tool_config(tool_name: str, configs: dict[str, Any]) -> Optional[dict[str, Any]]:
+def _extract_tool_config(
+    tool_name: str, configs: dict[str, Any]
+) -> Optional[dict[str, Any]]:
     """Extract comprehensive configuration specific to a tool from all config files."""
     extracted_config = {}
 

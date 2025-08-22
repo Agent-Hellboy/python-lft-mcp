@@ -22,6 +22,23 @@ def generate_mcp_config():
     return config
 
 
+def print_config():
+    """Print MCP configuration for Python LFT."""
+    config = generate_mcp_config()
+
+    print("🔧 MCP Configuration for Python LFT")
+    print("=" * 50)
+    print()
+    print("Copy the following configuration to your MCP client:")
+    print()
+    print(json.dumps(config, indent=2, sort_keys=True))
+    print()
+    print("📝 Instructions:")
+    print("1. Copy the JSON configuration above")
+    print("2. Add it to your MCP client's configuration file")
+    print("3. Restart your MCP client to load the Python LFT tools")
+
+
 def print_usage_instructions():
     """Print instructions for configuring MCP clients."""
     print("🔧 Python LFT MCP Server Configuration")
