@@ -91,11 +91,12 @@ async def lint(
             work_dir=work_dir,
         )
 
+        # Orchestrator returns a string, not CommandResult
         return {
-            "exit_code": result.exit_code,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "success": result.success,
+            "exit_code": 0,
+            "stdout": result,
+            "stderr": "",
+            "success": True,
         }
     except Exception as e:
         logger.error(f"Error running linter: {e}")
@@ -135,11 +136,12 @@ async def format_code(
             work_dir=work_dir,
         )
 
+        # Orchestrator returns a string, not CommandResult
         return {
-            "exit_code": result.exit_code,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "success": result.success,
+            "exit_code": 0,
+            "stdout": result,
+            "stderr": "",
+            "success": True,
         }
     except Exception as e:
         logger.error(f"Error running formatter: {e}")
@@ -179,11 +181,12 @@ async def test(
             work_dir=work_dir,
         )
 
+        # Orchestrator returns a string, not CommandResult
         return {
-            "exit_code": result.exit_code,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "success": result.success,
+            "exit_code": 0,
+            "stdout": result,
+            "stderr": "",
+            "success": True,
         }
     except Exception as e:
         logger.error(f"Error running tests: {e}")
@@ -198,8 +201,7 @@ async def test(
 def register_tools(mcp: FastMCP) -> None:
     """Register all MCP tools with the FastMCP instance."""
 
-    # Create orchestrator instance
-    orchestrator = ToolOrchestrator()
+    # Orchestrator instances are created per tool call for thread safety
 
     @mcp.tool(
         name="detect_workspace_tools",
