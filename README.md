@@ -10,15 +10,15 @@ A modern, modular Python development tools package that exposes linting, formatt
 
 A comprehensive MCP server that provides intelligent linting, formatting, and testing capabilities for Python projects. It automatically detects project configurations and enables LLMs to make smart decisions about code quality tools.
 
-## ✨ Features
+## Features
 
-- 🔍 **Comprehensive Config Detection** - Analyzes 70+ Python ecosystem config files
-- 🛠️ **Smart Tool Integration** - Supports ruff, black, pytest, mypy, pylint, and more
-- 🧠 **LLM-Optimized** - Provides detailed configuration data for intelligent tool selection
-- 📁 **Cross-Project Support** - Works with any Python project structure
-- ⚡ **Fast & Reliable** - Built with modern async Python and MCP protocols
+- **Comprehensive Config Detection** - Analyzes 70+ Python ecosystem config files
+- **Smart Tool Integration** - Supports ruff, black, pytest, mypy, pylint, and more
+- **LLM-Optimized** - Provides detailed configuration data for intelligent tool selection
+- **Cross-Project Support** - Works with any Python project structure
+- **Fast & Reliable** - Built with modern async Python and MCP protocols
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -77,7 +77,7 @@ pip install -e ".[dev]"
 
 For development configuration, see `examples/README.md`.
 
-## 🎯 Usage
+## Usage
 
 ### 1. Detect Project Configuration
 ```python
@@ -108,7 +108,7 @@ test(
 )
 ```
 
-## 🛠️ Supported Tools
+## Supported Tools
 
 ### Linters
 - **ruff** - Fast Python linter
@@ -130,7 +130,7 @@ test(
 - **nose2** - Unit testing
 - **unittest** - Built-in testing
 
-## 📋 Supported Configuration Files
+## Supported Configuration Files
 
 - `pyproject.toml` - Modern Python project config
 - `setup.cfg` - Legacy setuptools config  
@@ -143,7 +143,7 @@ test(
 - `.pre-commit-config.yaml` - Pre-commit hooks
 - And 60+ more Python ecosystem configs!
 
-## 🔧 Development
+## Development
 
 ### Setup Development Environment
 ```bash
@@ -217,7 +217,7 @@ python_lft/
 └── config/            # Constants and configuration
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -237,10 +237,10 @@ The project uses GitHub Actions for continuous integration:
 
 All checks must pass before merging pull requests.
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](https://github.com/Agent-Hellboy/python-lft-mcp/blob/main/LICENSE) file for details.
 
-## 🔗 Repository
+## Repository
 
 For the latest updates, issues, and contributions, visit: [https://github.com/Agent-Hellboy/python-lft-mcp](https://github.com/Agent-Hellboy/python-lft-mcp)

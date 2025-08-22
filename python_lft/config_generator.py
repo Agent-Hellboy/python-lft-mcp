@@ -26,14 +26,14 @@ def print_config():
     """Print MCP configuration for Python LFT."""
     config = generate_mcp_config()
 
-    print("🔧 MCP Configuration for Python LFT")
+    print("MCP Configuration for Python LFT")
     print("=" * 50)
     print()
     print("Copy the following configuration to your MCP client:")
     print()
     print(json.dumps(config, indent=2, sort_keys=True))
     print()
-    print("📝 Instructions:")
+    print("Instructions:")
     print("1. Copy the JSON configuration above")
     print("2. Add it to your MCP client's configuration file")
     print("3. Restart your MCP client to load the Python LFT tools")
@@ -41,21 +41,21 @@ def print_config():
 
 def print_usage_instructions():
     """Print instructions for configuring MCP clients."""
-    print("🔧 Python LFT MCP Server Configuration")
+    print("Python LFT MCP Server Configuration")
     print("=" * 50)
     print()
-    print("✅ Package installed successfully!")
+    print("Package installed successfully!")
     print()
-    print("📋 Next Steps:")
+    print("Next Steps:")
     print("1. Copy the configuration below to your MCP client")
     print("2. Restart your MCP client")
     print("3. Start using Python LFT tools!")
     print()
-    print("📁 Common MCP client configuration locations:")
+    print("Common MCP client configuration locations:")
     print("   • Cursor IDE: ~/.cursor/mcp.json")
     print("   • General MCP: ~/.config/mcp/config.json")
     print()
-    print("📄 Configuration to add:")
+    print("Configuration to add:")
     print("-" * 30)
 
 
@@ -68,18 +68,18 @@ def main():
 
     print("-" * 30)
     print()
-    print("🛠️ Available Tools:")
+    print("Available Tools:")
     print("   • detect_workspace_tools - Analyze project configuration")
     print("   • lint - Run linting with project settings")
     print("   • format - Format code with project settings")
     print("   • test - Execute tests with project settings")
     print("   • check_config_files - Verify config file presence")
     print()
-    print("💡 For more examples and development setup:")
+    print("For more examples and development setup:")
     print("   See: https://github.com/Agent-Hellboy/python-lft-mcp/tree/main/examples")
     print()
     print(
-        "🎉 Ready to use! Restart your MCP client and enjoy intelligent Python tooling!"
+        "Ready to use! Restart your MCP client and enjoy intelligent Python tooling!"
     )
 
 

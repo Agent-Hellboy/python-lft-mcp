@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2025-01-01
 
-### 🎉 Initial Release
+### Initial Release
 
 #### Added
 - **Core MCP Server**: Full-featured Model Context Protocol server for Python development tools
@@ -50,27 +50,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Error Handling**: Comprehensive error reporting and debugging
 - **Cross-Platform**: Works on Linux, macOS, and Windows
 
-### 🔧 Technical Details
+### Technical Details
 - **Python**: Requires Python 3.9+
 - **MCP Protocol**: Compatible with MCP 0.9.0+
 - **Dependencies**: Minimal core dependencies (mcp, PyYAML, pytest-asyncio)
 - **Optional Tools**: All development tools are optional dependencies
 - **Stdio Transport**: Direct stdio communication for optimal performance
 
-### 📖 Documentation
+### Documentation
 - Comprehensive README with installation and usage examples
 - Configuration examples for popular MCP clients
 - Development setup instructions
 - Complete API documentation
 
-### 🎯 Use Cases
+### Use Cases
 - **IDE Integration**: Enhanced Python development in MCP-compatible IDEs
 - **Code Quality**: Automated linting and formatting with intelligent configuration detection
 - **Project Analysis**: Understand and work with any Python project structure
 - **Testing Automation**: Run tests with project-specific settings
 - **LLM-Powered Development**: Enable AI assistants to make smart tool decisions
 
-### 🔄 CI/CD
+### CI/CD
 - **GitHub Actions**: Complete CI/CD pipeline with lint, test, and publish workflows
 - **Multi-Python Testing**: Automated testing across Python 3.9-3.12
 - **Code Coverage**: Codecov integration for coverage reporting
@@ -81,8 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Repository
 
-🔗 **GitHub**: [https://github.com/Agent-Hellboy/python-lft-mcp](https://github.com/Agent-Hellboy/python-lft-mcp)
+**GitHub**: [https://github.com/Agent-Hellboy/python-lft-mcp](https://github.com/Agent-Hellboy/python-lft-mcp)
 
 ## License
 
-📄 **MIT License**: [LICENSE](https://github.com/Agent-Hellboy/python-lft-mcp/blob/main/LICENSE)
+**MIT License**: [LICENSE](https://github.com/Agent-Hellboy/python-lft-mcp/blob/main/LICENSE)
