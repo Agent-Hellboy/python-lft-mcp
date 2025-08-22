@@ -23,7 +23,6 @@ def detect_workspace_tools(work_dir: str = ".") -> dict:
         Dictionary containing discovered tools and their configurations
     """
     try:
-        orchestrator = ToolOrchestrator()
         tools = detect_tools(work_dir=work_dir)
 
         return {

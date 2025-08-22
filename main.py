@@ -7,7 +7,9 @@ in stdio mode for integration with Cursor and other MCP clients.
 """
 
 import logging
+
 from python_lft.app import create_mcp
+
 
 # Configure logging
 logging.basicConfig(

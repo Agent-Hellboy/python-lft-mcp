@@ -1,7 +1,5 @@
 """Tests for python_lft.core.models module."""
 
-import pytest
-
 from python_lft.core.models import CommandResult, ToolConfig, WorkspaceTools
 
 

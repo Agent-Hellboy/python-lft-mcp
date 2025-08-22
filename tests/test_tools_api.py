@@ -2,8 +2,6 @@
 
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from python_lft.core.models import CommandResult, ToolConfig, WorkspaceTools
 
 
@@ -128,7 +126,7 @@ class TestToolsAPI:
 
     def test_tools_api_imports(self):
         """Test that tools API can be imported."""
-        from python_lft.tools_api import detect_workspace_tools, lint, format_code, test
+        from python_lft.tools_api import detect_workspace_tools, format_code, lint, test
 
         assert callable(detect_workspace_tools)
         assert callable(lint)

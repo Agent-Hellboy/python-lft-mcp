@@ -1,6 +1,5 @@
 """Tests for python_lft.services.runners module."""
 
-import asyncio
 from unittest.mock import AsyncMock, patch
 
 import pytest

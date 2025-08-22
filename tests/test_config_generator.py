@@ -3,8 +3,6 @@
 import json
 from unittest.mock import patch
 
-import pytest
-
 from python_lft.config_generator import generate_mcp_config, main, print_config
 
 

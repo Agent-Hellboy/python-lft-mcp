@@ -1,10 +1,8 @@
 """Tests for python_lft.services.workspace module."""
 
-from unittest.mock import MagicMock, mock_open, patch
+from unittest.mock import mock_open, patch
 
-import pytest
-
-from python_lft.core.models import ToolConfig, WorkspaceTools
+from python_lft.core.models import WorkspaceTools
 from python_lft.services.workspace import (
     _parse_config_file,
     detect_tools,

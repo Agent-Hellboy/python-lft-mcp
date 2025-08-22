@@ -1,10 +1,10 @@
 """Tests for python_lft.services.orchestrator module."""
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
-from python_lft.core.models import CommandResult, ToolConfig, WorkspaceTools
+from python_lft.core.models import WorkspaceTools
 from python_lft.services.orchestrator import ToolOrchestrator
 
 

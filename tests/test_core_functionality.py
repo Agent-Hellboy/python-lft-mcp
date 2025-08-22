@@ -2,8 +2,6 @@
 
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from python_lft.core.models import CommandResult, ToolConfig, WorkspaceTools
 
 
@@ -174,7 +172,6 @@ class TestPythonLftCore:
             patch("python_lft.app.FastMCP") as mock_fastmcp,
             patch("python_lft.app.register_tools") as mock_register,
         ):
-
             from python_lft.app import create_mcp
 
             mock_mcp = MagicMock()
@@ -196,10 +193,9 @@ class TestPythonLftCore:
     def test_import_structure(self):
         """Test that core imports work."""
         # Test that we can import key components
-        from python_lft.core.models import CommandResult, ToolConfig, WorkspaceTools
-        from python_lft.tools_api import detect_workspace_tools, lint, format_code, test
-        from python_lft.config_generator import generate_mcp_config
         from python_lft.app import create_mcp
+        from python_lft.config_generator import generate_mcp_config
+        from python_lft.tools_api import detect_workspace_tools, format_code, lint, test
 
         # All should be callable/instantiable
         assert callable(detect_workspace_tools)
