@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from python_lft.core.models import CommandResult, ToolConfig, WorkspaceTools
+from python_lft.core.models import ToolConfig, WorkspaceTools
 
 
 class TestToolsAPI:
@@ -71,11 +71,11 @@ class TestToolsAPI:
 
         mock_orchestrator = MagicMock()
         mock_orchestrator_class.return_value = mock_orchestrator
-        
+
         # Mock the async lint method
         async def mock_lint(*args, **kwargs):
             return "Clean lint result"
-        
+
         mock_orchestrator.lint = mock_lint
 
         result = await lint(target="test.py")
@@ -92,11 +92,11 @@ class TestToolsAPI:
 
         mock_orchestrator = MagicMock()
         mock_orchestrator_class.return_value = mock_orchestrator
-        
+
         # Mock the async format method
         async def mock_format(*args, **kwargs):
             return "Format result"
-        
+
         mock_orchestrator.format = mock_format
 
         result = await format_code(target="test.py")
@@ -113,11 +113,11 @@ class TestToolsAPI:
 
         mock_orchestrator = MagicMock()
         mock_orchestrator_class.return_value = mock_orchestrator
-        
+
         # Mock the async test method
         async def mock_test(*args, **kwargs):
             return "Test result"
-        
+
         mock_orchestrator.test = mock_test
 
         result = await test(target="tests/")
